@@ -31,6 +31,17 @@ class ListTest {
 		assertEquals(20,list.size());
 		
 	}
+	@Test
+	//(expected = RuntimeException.class) // junit-4 annotation not allowed in junit 5
+	public void mockListGetToThrowException() {
+		List<String> list = mock(List.class);
+        when(list.get(Mockito.anyInt())).thenThrow(new RuntimeException("error occurred something went wrong"));
+        
+        assertThrows(RuntimeException.class,() -> {
+        	list.get(0);
+        });
+        //list.get(0);
+	}
 	
 	@Test
 	public void mockListGetWithAny() {
