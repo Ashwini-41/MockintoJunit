@@ -31,6 +31,14 @@ class ListTest {
 		assertEquals(20,list.size());
 		
 	}
+	
+	@Test
+	public void MockListGet() {
+		List<String> list = mock(List.class);
+		when(list.get(0)).thenReturn("ashwini");
+		assertEquals("ashwini",list.get(0));
+		assertNull(list.get(1));
+	}
 	@Test
 	//(expected = RuntimeException.class) // junit-4 annotation not allowed in junit 5
 	public void mockListGetToThrowException() {
@@ -63,10 +71,7 @@ class ListTest {
 		//then
 		assertThat("classes",is(list.get(0)));
 		assertThat("classes",is(list.get(0)));
-		
-		
-		
-
 	}
+	
 
 }
