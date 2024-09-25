@@ -2,6 +2,7 @@ package com.monckintoBusiness.MockintoBusiness.business;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -13,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import com.monckintoBusiness.MockintoBusiness.data.TodoService;
 
@@ -43,6 +45,28 @@ class TodoBusinesslMockitoTest {
 		
 		//then
 		assertThat(todos.size(),is(2));
+
+	}
+	
+	@Test
+	public void deleteNowTest() {
+		TodoService todoService = mock(TodoService.class);
+		List<String> allTodos = Arrays.asList("Learn Spring MVC","Learn Spring","Learn to Dance");
+		
+		when(todoService.retriveTodos("Ranga")).thenReturn(allTodos);
+		
+		TodoBusinessImpl todoBusiness = new TodoBusinessImpl(todoService);
+
+		todoBusiness.deleteTodosNotRelatedToSpring("Ranga");
+		
+		verify(todoService).deleteTodo("Learn to Dance");
+		verify(todoService,Mockito.never()).deleteTodo("Learn Spring MVC");
+		verify(todoService,Mockito.never()).deleteTodo("Learn Spring");
+		
+		verify(todoService,Mockito.times(1)).deleteTodo("Learn to Dance");
+
+		
+		
 
 	}
 	
