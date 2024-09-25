@@ -3,6 +3,9 @@ package com.monckintoBusiness.MockintoBusiness;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.BDDMockito.given;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 
 import java.util.List;
@@ -36,6 +39,22 @@ class ListTest {
 		
 		assertEquals("ashwini",list.get(0));
 		assertEquals("ashwini",list.get(1));
+
+	}
+	
+	@Test
+	public void bddAliases_UsingGivenReturn() {
+		List<String> list = mock(List.class);
+		
+		//given
+		given(list.get(Mockito.anyInt())).willReturn("classes");
+		
+		//then
+		assertThat("classes",is(list.get(0)));
+		assertThat("classes",is(list.get(0)));
+		
+		
+		
 
 	}
 
